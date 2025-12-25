@@ -49,6 +49,9 @@ make serve
 
 - uv
 ```bash
+cd frontend
+npm install  # 初回のみ
+cd ..
 make serve-uv
 ```
 
