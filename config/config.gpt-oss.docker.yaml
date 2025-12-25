@@ -1,0 +1,97 @@
+experiment:
+  name: GPT-OSS-20B-Fixed-1200-200-Hybrid-Rerank-RRF
+  seed: 42
+  output_dir: outputs
+
+data:
+  egov:
+    enabled: true
+    xml_dir: ./data/egov/xml
+    law_tree_cache: ./data/egov/law_tree.jsonl
+    law_list_path: ./data/lawqa_jp/law_list.json
+    api_base_url: https://laws.e-gov.go.jp/api/2/law_file/xml
+  lawqa_jp:
+    path: ./data/lawqa_jp/selection.json
+
+vector_store:
+  qdrant:
+    location: local    # local | server | in-memory
+    collection_name: lawqa_jp
+    local:
+      storage_dir: ./data/qdrant
+    server:
+      url: http://qdrant:6333
+      api_key: null
+
+chunking:
+  strategy: fixed
+  fixed:
+    max_chars: 1200
+    overlap_chars: 200
+  hierarchy:
+    level: section
+    max_chars_per_chunk: 6000
+
+embedding:
+  dense:
+    provider: openai
+    model: text-embedding-3-small
+    batch_size: 32
+  sparse:
+    enabled: true
+    model: bizreach-inc/light-splade-japanese-56M
+    batch_size: 16
+
+retriever:
+  dense:
+    top_k: 50
+  sparse:
+    top_k: 100
+  hybrid:
+    combine: rrf
+    top_k: 20
+    linear_weights:
+      dense: 0.7
+      sparse: 0.3
+  rerank:
+    enabled: true
+    mode: cross_encoder    # cross_encoder | none
+    cross_encoder:
+      model: BAAI/bge-reranker-v2-m3
+    top_k: 5
+  hyde:
+    enabled: false
+    prompt_template: hyde_default
+  extra:
+    multi_query:
+      enabled: false
+      num_queries: 3
+    context_compression:
+      enabled: false
+      target_tokens: 1500
+
+llm:
+  provider: lmstudio
+  model: openai/gpt-oss-20b
+  openai:
+    base_url: https://api.openai.com/v1
+    api_key_env: OPENAI_API_KEY
+    rag_mode: plain
+  lmstudio:
+    base_url: http://host.docker.internal:1234/v1
+    api_key_env: LMSTUDIO_API_KEY
+
+eval:
+  split: test
+  max_examples: null
+  metrics:
+    - accuracy
+    - macro_f1
+  output_dir: ${experiment.output_dir}/${experiment.name}
+
+serve:
+  host: 0.0.0.0
+  port: 8000
+
+logging:
+  level: INFO

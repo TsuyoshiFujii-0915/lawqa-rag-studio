@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawTitle>サンプル法</LawTitle>
+  <Article>
+    <ArticleTitle>第一条</ArticleTitle>
+    <Paragraph>
+      <ParagraphNum>１</ParagraphNum>
+      <ParagraphSentence>会社は定款を備えなければならない。</ParagraphSentence>
+    </Paragraph>
+    <Paragraph>
+      <ParagraphNum>２</ParagraphNum>
+      <ParagraphSentence>株主は議決権を行使できる。</ParagraphSentence>
+    </Paragraph>
+  </Article>
+  <Article>
+    <ArticleTitle>第二条</ArticleTitle>
+    <Paragraph>
+      <ParagraphNum>１</ParagraphNum>
+      <ParagraphSentence>取締役は善管注意義務を負う。</ParagraphSentence>
+    </Paragraph>
+  </Article>
+</Law>
