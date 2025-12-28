@@ -1,6 +1,6 @@
 # LawQA-RAG-Studio
 
-日本の法令コーパス（[e-Gov](https://laws.e-gov.go.jp/)）＋ デジタル庁公開の日本の法令に関する多肢選択式QAデータセット [lawqa_jp](https://github.com/digital-go-jp/lawqa_jp) を使い、RAG構成を `config.yaml` だけで切り替えて簡単に性能評価を実行できるフレームワークです。  
+日本の法令コーパス（[e-Gov](https://laws.e-gov.go.jp/)）＋ デジタル庁公開の日本の法令に関する多肢選択式QAデータセット ([lawqa_jp](https://github.com/digital-go-jp/lawqa_jp)) を使い、RAG構成を `config.yaml` だけで切り替えて簡単に性能評価を実行できるフレームワークです。  
 eval（評価）を軸に、同じ設定で serve（API + フロント）も利用できます。
 
 ## 主な機能
